@@ -9,9 +9,6 @@ import (
 
 func main() {
 	r := bufio.NewReader(os.Stdin)
-	b, _, err := r.ReadLine()
-	if err != nil {
-		panic(err)
-	}
+	b, _, _ := r.ReadLine()
 	fmt.Println(stringutil.Reverse(string(b)))
 }
