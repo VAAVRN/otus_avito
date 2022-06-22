@@ -32,7 +32,6 @@ func Unpack(s string) (string, error) {
 		i++
 	}
 	for ; i < lnR; i++ {
-
 		cur, curIsEsc, err := getNext(rs, i)
 		if err != nil {
 			return "", err
