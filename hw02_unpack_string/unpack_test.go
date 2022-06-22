@@ -2,8 +2,9 @@ package hw02unpackstring
 
 import (
 	"errors"
-	"github.com/stretchr/testify/require"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 )
 
 func TestUnpack(t *testing.T) {
@@ -15,7 +16,6 @@ func TestUnpack(t *testing.T) {
 		{input: "abccd", expected: "abccd"},
 		{input: "", expected: ""},
 		{input: "aaa0b", expected: "aab"},
-		//uncomment if task with asterisk completed
 		{input: `qwe\4\5`, expected: `qwe45`},
 		{input: `qwe\45`, expected: `qwe44444`},
 		{input: `qwe\\5`, expected: `qwe\\\\\`},
@@ -40,7 +40,6 @@ func TestUnpackAdditional(t *testing.T) {
 		{input: "d\n5abc", expected: "d\n\n\n\n\nabc"},
 		{input: "d/////5abc", expected: "d/////////abc"},
 		{input: "   4", expected: "      "},
-		//uncomment if task with asterisk completed
 		{input: `qwe\\`, expected: `qwe\`},
 		{input: `\\\12`, expected: `\11`},
 		{input: `\\\\`, expected: `\\`},
