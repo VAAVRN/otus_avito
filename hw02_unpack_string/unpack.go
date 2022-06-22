@@ -15,9 +15,8 @@ func Unpack(s string) (string, error) {
 	if s == "" {
 		return "", nil
 	}
-
 	rs := []rune(s)
-	if unicode.IsDigit(rs[0]) { // краевой случай цифра в начале строки
+	if unicode.IsDigit(rs[0]) {
 		return "", ErrInvalidString
 	}
 	lnR := len(rs)
@@ -25,7 +24,6 @@ func Unpack(s string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-
 	var res strings.Builder
 	i := 1
 	if prevIsEsc {
@@ -36,7 +34,6 @@ func Unpack(s string) (string, error) {
 		if err != nil {
 			return "", err
 		}
-
 		if curIsEsc {
 			i++
 		}
@@ -55,7 +52,6 @@ func Unpack(s string) (string, error) {
 		}
 		prev, prevIsEsc = cur, curIsEsc
 	}
-
 	if !unicode.IsDigit(prev) || prevIsEsc {
 		res.WriteRune(prev)
 	}
