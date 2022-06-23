@@ -9,7 +9,7 @@ import (
 
 var ErrInvalidString = errors.New("invalid string")
 
-const e = '\\'
+const BACKSLASH = '\\'
 
 func Unpack(s string) (string, error) {
 	if s == "" {
@@ -20,7 +20,7 @@ func Unpack(s string) (string, error) {
 		return "", ErrInvalidString
 	}
 	lnR := len(rs)
-	prev, prevIsEsc, err := getNext(rs, 0)
+	prev, prevIsEsc, err := nextEscChar(rs, 0)
 	if err != nil {
 		return "", err
 	}
@@ -30,7 +30,7 @@ func Unpack(s string) (string, error) {
 		i++
 	}
 	for ; i < lnR; i++ {
-		cur, curIsEsc, err := getNext(rs, i)
+		cur, curIsEsc, err := nextEscChar(rs, i)
 		if err != nil {
 			return "", err
 		}
@@ -58,12 +58,12 @@ func Unpack(s string) (string, error) {
 	return res.String(), nil
 }
 
-func getNext(rs []rune, i int) (r rune, isEsc bool, err error) {
+func nextEscChar(rs []rune, i int) (r rune, isEsc bool, err error) {
 	if i > len(rs)-1 {
 		err = ErrInvalidString
 		return
 	}
-	if rs[i] == e {
+	if rs[i] == BACKSLASH {
 		if i >= len(rs)-1 {
 			err = ErrInvalidString
 			return
