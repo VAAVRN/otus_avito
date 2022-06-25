@@ -7,7 +7,7 @@ import (
 )
 
 // Change to true if needed.
-var taskWithAsteriskIsCompleted = false
+var taskWithAsteriskIsCompleted = true
 
 var text = `Как видите, он  спускается  по  лестнице  вслед  за  своим
 	другом   Кристофером   Робином,   головой   вниз,  пересчитывая
@@ -43,6 +43,27 @@ var text = `Как видите, он  спускается  по  лестни�
 	посидеть у огня и послушать какую-нибудь интересную сказку.
 		В этот вечер...`
 
+var textInEng = `Some people are blind. 
+	Blind people can not see well or at all. 
+	They can not cross the street easily. 
+	They do not hear bikes and electric cars.
+	Mael Fabien watches these people. 
+	He wants to help them. He thinks that robots can help.
+	Fabien gets an idea. He thinks about autonomous cars and how they work. 
+	Autonomous cars drive without a driver. 
+	The cars see obstacles.
+	Fabien and other people make a special device. 
+	A person wears it around his neck. 
+	The device checks if obstacles are there. 
+	The device makes a noise to show the obstacles. 
+	A blind person knows where the things are.`
+
+var shortText = `Some people are blind. 
+	Some people are.
+	Some people.
+	Some.
+	.`
+
 func TestTop10(t *testing.T) {
 	t.Run("no words in empty string", func(t *testing.T) {
 		require.Len(t, Top10(""), 0)
@@ -77,6 +98,40 @@ func TestTop10(t *testing.T) {
 				"то",        // 4
 			}
 			require.Equal(t, expected, Top10(text))
+		}
+	})
+}
+
+func TestTop10InEng(t *testing.T) {
+	t.Run("Test Eng text", func(t *testing.T) {
+		if taskWithAsteriskIsCompleted {
+			expected := []string{
+				"the",    // 6
+				"a",      // 5
+				"cars",   // 4
+				"people", // 4
+				"and",    // 3
+				"are",    // 3
+				"blind",  // 3
+				"can",    // 3
+				"device", // 3
+				"fabien", // 3
+			}
+			require.Equal(t, expected, Top10(textInEng))
+		}
+	})
+}
+
+func TestTop10ShortText(t *testing.T) {
+	t.Run("Short text with 4 diff words", func(t *testing.T) {
+		if taskWithAsteriskIsCompleted {
+			expected := []string{
+				"some",   // 4
+				"people", // 3
+				"are",    // 2
+				"blind",  // 1
+			}
+			require.Equal(t, expected, Top10(shortText))
 		}
 	})
 }
